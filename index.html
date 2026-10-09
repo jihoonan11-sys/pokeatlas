@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PokéAtlas — Global Pokémon Knowledge & Card Market Archive">
+  <title>PokéAtlas — Pokémon Knowledge & Card Market Archive</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="brand" data-nav="home" aria-label="PokéAtlas">
+        <svg class="brand-icon" viewBox="0 0 40 40" width="32" height="32" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="#1a2744"/>
+          <path d="M20 4 A16 16 0 0 1 20 36" fill="#e63946"/>
+          <path d="M20 36 A16 16 0 0 1 20 4" fill="#f1f3f5"/>
+          <circle cx="20" cy="20" r="6" fill="#1a2744"/>
+          <circle cx="20" cy="20" r="3.5" fill="#f1f3f5"/>
+        </svg>
+        <span class="brand-text">PokéAtlas</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#" data-nav="home" class="nav-link active" data-i18n="nav_home">홈</a>
+        <a href="#" data-nav="pokedex" class="nav-link" data-i18n="nav_pokedex">포켓몬스터 도감</a>
+        <a href="#" data-nav="cards" class="nav-link" data-i18n="nav_cards">카드 아카이브</a>
+        <a href="#" data-nav="market" class="nav-link" data-i18n="nav_market">글로벌 카드 마켓</a>
+        <a href="#" data-nav="academy" class="nav-link" data-i18n="nav_academy">포켓몬 아카데미</a>
+        <a href="#" data-nav="assistant" class="nav-link" data-i18n="nav_assistant">AI 지식 어시스턴트</a>
+        <a href="#" data-nav="collection" class="nav-link" data-i18n="nav_collection">내 컬렉션</a>
+      </nav>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <h1 data-i18n="home_title">PokéAtlas</h1>
+        <p class="hero-sub" data-i18n="home_subtitle">글로벌 포켓몬 지식 & 카드 마켓 아카이브</p>
+        <div class="global-search">
+          <input type="text" id="globalSearchInput" data-i18n-ph="home_search_ph" placeholder="포켓몬 이름 또는 도감 번호로 검색">
+          <button id="globalSearchBtn" data-i18n="home_search_btn">검색</button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card quick-nav-card">
+          <h2 data-i18n="home_quick_nav">빠른 이동</h2>
+          <div class="quick-nav-grid">
+            <button class="quick-nav-item" data-nav="pokedex">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+              <span data-i18n="nav_pokedex">포켓몬스터 도감</span>
+            </button>
+            <button class="quick-nav-item" data-nav="cards">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+              <span data-i18n="nav_cards">카드 아카이브</span>
+            </button>
+            <button class="quick-nav-item" data-nav="market">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+              <span data-i18n="nav_market">글로벌 카드 마켓</span>
+            </button>
+            <button class="quick-nav-item" data-nav="academy">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.5 3 6 3s6-2 6-3v-5"/></svg>
+              <span data-i18n="nav_academy">포켓몬 아카데미</span>
+            </button>
+            <button class="quick-nav-item" data-nav="assistant">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span data-i18n="nav_assistant">AI 지식 어시스턴트</span>
+            </button>
+            <button class="quick-nav-item" data-nav="collection">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              <span data-i18n="nav_collection">내 컬렉션</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card featured-card">
+          <h2 data-i18n="home_featured">추천 포켓몬</h2>
+          <div class="featured-grid" id="featuredGrid">
+            <div class="loading-text" data-i18n="loading">불러오는 중...</div>
+          </div>
+        </div>
+
+        <div class="card recent-card">
+          <h2 data-i18n="home_recent">최근 본 포켓몬</h2>
+          <div class="recent-grid" id="recentGrid">
+            <div class="empty-text" data-i18n="home_no_recent">최근 본 포켓몬이 없습니다.</div>
+          </div>
+        </div>
+
+        <div class="card market-overview-card">
+          <h2 data-i18n="home_market_overview">카드 마켓 개요</h2>
+          <div class="market-overview-body">
+            <div class="market-country-select">
+              <label data-i18n="home_country">국가</label>
+              <select id="homeCountrySelect">
+                <option value="kr" data-i18n="country_kr">한국</option>
+                <option value="us" data-i18n="country_us">미국</option>
+                <option value="jp" data-i18n="country_jp">일본</option>
+              </select>
+            </div>
+            <div class="market-status" id="marketStatus">
+              <div class="info-banner" data-i18n="market_no_data_home">
+                실제 마켓 가격 데이터가 아직 연결되지 않았습니다. 실시간 데이터가 연결되면 이 영역에 표시됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card learning-recommendation-card">
+          <h2 data-i18n="home_learning">학습 추천</h2>
+          <div class="learning-rec-body" id="learningRecBody">
+            <button class="lesson-rec-item" data-nav="academy" data-lesson="types">
+              <span data-i18n="academy_types_title">포켓몬 타입과 타입 상성</span>
+            </button>
+            <button class="lesson-rec-item" data-nav="academy" data-lesson="evolution">
+              <span data-i18n="academy_evolution_title">진화와 진화 방법</span>
+            </button>
+            <button class="lesson-rec-item" data-nav="academy" data-lesson="stats">
+              <span data-i18n="academy_stats_title">기본 스탯 이해하기</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card data-source-card">
+          <h2 data-i18n="home_data_source">데이터 출처 및 업데이트</h2>
+          <div class="data-source-body">
+            <div class="data-source-item">
+              <span class="ds-label" data-i18n="home_ds_pokemon">포켓몬 데이터:</span>
+              <a href="https://pokeapi.co/" target="_blank" rel="noopener">PokéAPI</a>
+            </div>
+            <div class="data-source-item">
+              <span class="ds-label" data-i18n="home_ds_cards">카드 데이터:</span>
+              <a href="https://pokemontcg.io/" target="_blank" rel="noopener">Pokémon TCG API</a>
+            </div>
+            <div class="data-source-item">
+              <span class="ds-label" data-i18n="home_ds_market">마켓 가격:</span>
+              <span data-i18n="home_ds_market_unavailable">연결된 실시간 마켓 데이터 소스 없음</span>
+            </div>
+            <div class="data-source-item">
+              <span class="ds-label" data-i18n="home_last_update">최종 업데이트:</span>
+              <span id="lastUpdateTime">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POKEDEX -->
+    <section id="page-pokedex" class="page">
+      <div class="section-header">
+        <h1 data-i18n="pokedex_title">포켓몬스터 도감</h1>
+        <p data-i18n="pokedex_subtitle">PokéAPI 기반 실시간 포켓몬 데이터</p>
+      </div>
+      <div class="pokedex-controls">
+        <div class="search-row">
+          <input type="text" id="pokedexSearch" data-i18n-ph="pokedex_search_ph" placeholder="이름 또는 도감 번호">
+          <button id="pokedexSearchBtn" data-i18n="search_btn">검색</button>
+        </div>
+        <div class="filter-row">
+          <select id="typeFilter">
+            <option value="" data-i18n="filter_all_types">모든 타입</option>
+          </select>
+          <select id="genFilter">
+            <option value="" data-i18n="filter_all_gens">모든 세대</option>
+            <option value="1">I</option>
+            <option value="2">II</option>
+            <option value="3">III</option>
+            <option value="4">IV</option>
+            <option value="5">V</option>
+            <option value="6">VI</option>
+            <option value="7">VII</option>
+            <option value="8">VIII</option>
+            <option value="9">IX</option>
+          </select>
+          <button id="loadMoreBtn" data-i18n="load_more">더 보기</button>
+        </div>
+      </div>
+      <div class="pokedex-grid" id="pokedexGrid"></div>
+      <div class="loading-text" id="pokedexLoading" style="display:none" data-i18n="loading">불러오는 중...</div>
+      <div class="empty-text" id="pokedexEmpty" style="display:none" data-i18n="pokedex_no_results">검색 결과가 없습니다.</div>
+      <div class="error-text" id="pokedexError" style="display:none"></div>
+    </section>
+
+    <!-- POKEMON DETAIL MODAL -->
+    <div class="modal-overlay" id="pokemonDetailModal" style="display:none">
+      <div class="modal-content pokemon-detail">
+        <button class="modal-close" id="pokemonDetailClose">&times;</button>
+        <div id="pokemonDetailBody"></div>
+      </div>
+    </div>
+
+    <!-- TRADING CARDS -->
+    <section id="page-cards" class="page">
+      <div class="section-header">
+        <h1 data-i18n="cards_title">트레이딩 카드 아카이브</h1>
+        <p data-i18n="cards_subtitle">Pokémon TCG API 기반 카드 데이터</p>
+      </div>
+      <div class="pokedex-controls">
+        <div class="search-row">
+          <input type="text" id="cardSearch" data-i18n-ph="cards_search_ph" placeholder="카드 이름 검색">
+          <button id="cardSearchBtn" data-i18n="search_btn">검색</button>
+        </div>
+        <div class="filter-row">
+          <select id="cardSetFilter">
+            <option value="" data-i18n="filter_all_sets">모든 세트</option>
+          </select>
+          <select id="cardRarityFilter">
+            <option value="" data-i18n="filter_all_rarities">모든 레어도</option>
+          </select>
+          <button id="cardLoadMoreBtn" data-i18n="load_more">더 보기</button>
+        </div>
+      </div>
+      <div class="card-grid" id="cardGrid"></div>
+      <div class="loading-text" id="cardLoading" style="display:none" data-i18n="loading">불러오는 중...</div>
+      <div class="empty-text" id="cardEmpty" style="display:none" data-i18n="cards_no_results">검색 결과가 없습니다.</div>
+      <div class="error-text" id="cardError" style="display:none"></div>
+    </section>
+
+    <!-- CARD DETAIL MODAL -->
+    <div class="modal-overlay" id="cardDetailModal" style="display:none">
+      <div class="modal-content card-detail">
+        <button class="modal-close" id="cardDetailClose">&times;</button>
+        <div id="cardDetailBody"></div>
+      </div>
+    </div>
+
+    <!-- GLOBAL MARKET -->
+    <section id="page-market" class="page">
+      <div class="section-header">
+        <h1 data-i18n="market_title">글로벌 카드 마켓 분석</h1>
+        <p data-i18n="market_subtitle">한국 · 미국 · 일본 카드 시장 동향</p>
+      </div>
+      <div class="market-controls">
+        <div class="market-control-group">
+          <label data-i18n="market_country">국가</label>
+          <select id="marketCountry">
+            <option value="kr" data-i18n="country_kr">한국</option>
+            <option value="us" data-i18n="country_us">미국</option>
+            <option value="jp" data-i18n="country_jp">일본</option>
+          </select>
+        </div>
+        <div class="market-control-group">
+          <label data-i18n="market_currency">통화</label>
+          <select id="marketCurrency">
+            <option value="KRW">KRW (₩)</option>
+            <option value="USD">USD ($)</option>
+            <option value="JPY">JPY (¥)</option>
+          </select>
+        </div>
+        <div class="market-control-group">
+          <label data-i18n="market_card">카드 검색</label>
+          <input type="text" id="marketCardSearch" data-i18n-ph="market_card_ph" placeholder="카드 이름 입력">
+        </div>
+      </div>
+      <div class="market-chart-area" id="marketChartArea">
+        <div class="market-empty-state">
+          <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+            <path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/>
+          </svg>
+          <h3 data-i18n="market_empty_title">실제 마켓 데이터를 사용할 수 없습니다</h3>
+          <p data-i18n="market_empty_desc">
+            현재 무료로 사용 가능한 신뢰할 수 있는 카드 마켓 가격 히스토리 API가 연결되어 있지 않습니다.
+            실제 거래 가격, 거래량, 시장 평균 데이터를 임의로 생성하여 표시하지 않습니다.
+            호환 가능한 마켓 데이터 API가 연결되면 이 영역에 실제 차트와 거래 데이터가 표시됩니다.
+          </p>
+          <div class="market-info-box">
+            <h4 data-i18n="market_info_title">데이터 연결 안내</h4>
+            <ul>
+              <li data-i18n="market_info_1">국가별 선택 및 통화 변환 인터페이스가 준비되어 있습니다.</li>
+              <li data-i18n="market_info_2">7일 / 30일 / 90일 / 1년 / 전체 기간 선택 기능이 준비되어 있습니다.</li>
+              <li data-i18n="market_info_3">송부가 대 언도가, 카드 상태 및 등급 정보 표시 영역이 준비되어 있습니다.</li>
+              <li data-i18n="market_info_4">국가 비교 기능은 실제 비교 가능한 데이터가 있을 때 활성화됩니다.</li>
+            </ul>
+          </div>
+          <div class="market-time-range" id="marketTimeRange" style="display:none">
+            <button data-range="7" data-i18n="range_7d">7일</button>
+            <button data-range="30" data-i18n="range_30d">30일</button>
+            <button data-range="90" data-i18n="range_90d">90일</button>
+            <button data-range="365" data-i18n="range_1y">1년</button>
+            <button data-range="all" data-i18n="range_all">전체</button>
+          </div>
+        </div>
+      </div>
+      <div class="market-attribution">
+        <span data-i18n="market_attribution">데이터 소스: 연결된 실시간 마켓 데이터 소스 없음 · </span>
+        <span data-i18n="market_last_update">최종 업데이트: —</span>
+      </div>
+    </section>
+
+    <!-- ACADEMY -->
+    <section id="page-academy" class="page">
+      <div class="section-header">
+        <h1 data-i18n="academy_title">포켓몬 아카데미</h1>
+        <p data-i18n="academy_subtitle">초보자부터 숙련자까지를 위한 학습 공간</p>
+      </div>
+      <div class="academy-layout">
+        <div class="academy-sidebar" id="academySidebar">
+          <button class="lesson-item active" data-lesson="types">
+            <span data-i18n="academy_types_title">포켓몬 타입과 타입 상성</span>
+          </button>
+          <button class="lesson-item" data-lesson="evolution">
+            <span data-i18n="academy_evolution_title">진화와 진화 방법</span>
+          </button>
+          <button class="lesson-item" data-lesson="abilities">
+            <span data-i18n="academy_abilities_title">특성과 기술</span>
+          </button>
+          <button class="lesson-item" data-lesson="stats">
+            <span data-i18n="academy_stats_title">기본 스탯 이해하기</span>
+          </button>
+          <button class="lesson-item" data-lesson="generations">
+            <span data-i18n="academy_generations_title">세대와 지역</span>
+          </button>
+          <button class="lesson-item" data-lesson="mechanics">
+            <span data-i18n="academy_mechanics_title">포켓몬 게임 메커니즘</span>
+          </button>
+          <button class="lesson-item" data-lesson="competitive">
+            <span data-i18n="academy_competitive_title">대전 기초 개념</span>
+          </button>
+          <button class="lesson-item" data-lesson="tcg_rules">
+            <span data-i18n="academy_tcg_rules_title">포켓몬 TCG 규칙</span>
+          </button>
+          <button class="lesson-item" data-lesson="rarity">
+            <span data-i18n="academy_rarity_title">카드 레어도 용어</span>
+          </button>
+          <button class="lesson-item" data-lesson="grading">
+            <span data-i18n="academy_grading_title">레어도와 등급의 차이</span>
+          </button>
+        </div>
+        <div class="academy-content" id="academyContent"></div>
+      </div>
+      <div class="academy-progress">
+        <h3 data-i18n="academy_progress_title">학습 진행도</h3>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="academyProgressBar" style="width:0%"></div>
+        </div>
+        <span id="academyProgressText">0 / 10</span>
+      </div>
+    </section>
+
+    <!-- QUIZ MODAL -->
+    <div class="modal-overlay" id="quizModal" style="display:none">
+      <div class="modal-content quiz-content">
+        <button class="modal-close" id="quizClose">&times;</button>
+        <div id="quizBody"></div>
+      </div>
+    </div>
+
+    <!-- AI ASSISTANT -->
+    <section id="page-assistant" class="page">
+      <div class="section-header">
+        <h1 data-i18n="assistant_title">AI 지식 어시스턴트</h1>
+        <p data-i18n="assistant_subtitle">로컬 지식 기반 FAQ & 가이드</p>
+      </div>
+      <div class="assistant-info-banner">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+        <span data-i18n="assistant_disclaimer">
+          이 기능은 로컬 지식 기반 검색 시스템이며, 실시간 생성형 AI 모델이 연결된 것이 아닙니다. 향후 실제 AI 백엔드 연결을 위한 인터페이스가 준비되어 있습니다.
+        </span>
+      </div>
+      <div class="assistant-chat" id="assistantChat">
+        <div class="assistant-messages" id="assistantMessages"></div>
+        <div class="assistant-input-row">
+          <input type="text" id="assistantInput" data-i18n-ph="assistant_input_ph" placeholder="포켓몬 관련 질문을 입력하세요...">
+          <button id="assistantSendBtn" data-i18n="assistant_send">질문하기</button>
+        </div>
+      </div>
+      <div class="assistant-suggestions">
+        <h4 data-i18n="assistant_suggestions">추천 질문</h4>
+        <div class="suggestion-chips" id="suggestionChips"></div>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section id="page-collection" class="page">
+      <div class="section-header">
+        <h1 data-i18n="collection_title">내 컬렉션</h1>
+        <p data-i18n="collection_subtitle">브라우저 로컬 저장 기반 컬렉션</p>
+      </div>
+      <div class="collection-info-banner">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+        <span data-i18n="collection_disclaimer">
+          컬렉션 데이터는 브라우저 localStorage에 저장되며, 기기 간 자동 동기화되지 않습니다. 브라우저 저장소를 삭제하면 데이터가 손실될 수 있습니다.
+        </span>
+      </div>
+      <div class="collection-tabs">
+        <button class="collection-tab active" data-tab="pokemon" data-i18n="collection_pokemon_tab">포켓몬</button>
+        <button class="collection-tab" data-tab="cards" data-i18n="collection_cards_tab">카드</button>
+        <button class="collection-tab" data-tab="progress" data-i18n="collection_progress_tab">학습 진행도</button>
+      </div>
+      <div class="collection-content" id="collectionContent"></div>
+    </section>
+  </main>
+
+  <!-- Toast notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <span data-i18n="footer_brand">PokéAtlas — 비공식 팬 프로젝트</span>
+      <span data-i18n="footer_disclaimer">Pokémon 및 관련 상표는 Nintendo·Game Freak·The Pokémon Company의 등록 상표입니다.</span>
+      <span data-i18n="footer_data">데이터: PokéAPI · Pokémon TCG API</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
