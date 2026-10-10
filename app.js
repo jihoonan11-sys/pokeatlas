@@ -47,7 +47,7 @@ const I18N = {
     academy_explore_pokedex: '도감에서 보기',
     assistant_title: 'AI 지식 어시스턴트', assistant_subtitle: '로컬 지식 기반 FAQ & 가이드',
     assistant_disclaimer: '이 기능은 로컬 지식 기반 검색 시스템이며, 실시간 생성형 AI 모델이 연결된 것이 아닙니다. 향후 실제 AI 백엔드 연결을 위한 인터페이스가 준비되어 있습니다.',
-    assistant_input_ph: '포켓몰 관련 질문을 입력하세요...', assistant_send: '질문하기',
+    assistant_input_ph: '포켓몬 관련 질문을 입력하세요...', assistant_send: '질문하기',
     assistant_suggestions: '추천 질문',
     assistant_greeting: '안녕하세요! 포켓몬 지식 어시스턴트입니다. 타입 상성, 진화, 스탯, TCG 규칙 등에 대해 질문해주세요.',
     assistant_no_match: '죄송합니다. 해당 질문에 대한 정보를 찾을 수 없습니다. 다른 키워드로 시도해보세요.',
@@ -64,6 +64,8 @@ const I18N = {
     detail_stats: '기본 스탯', detail_abilities: '특성', detail_moves: '기술 (일부)',
     detail_evolution: '진화 체인', detail_types: '타입', detail_height: '키',
     detail_weight: '무게', detail_gen: '세대',
+    detail_no_evolution: '이 포켓몬은 진화하지 않습니다.',
+    detail_fav_add: '컬렉션에 추가', detail_fav_remove: '컬렉션에서 제거',
     card_detail_name: '카드 이름', card_detail_number: '카드 번호', card_detail_set: '세트',
     card_detail_rarity: '레어도', card_detail_types: '타입', card_detail_hp: 'HP',
     card_detail_artist: '일러스트', card_detail_supertype: '분류', card_detail_subtype: '서브타입',
@@ -131,6 +133,8 @@ const I18N = {
     detail_stats: 'Base Stats', detail_abilities: 'Abilities', detail_moves: 'Moves (sample)',
     detail_evolution: 'Evolution Chain', detail_types: 'Types', detail_height: 'Height',
     detail_weight: 'Weight', detail_gen: 'Generation',
+    detail_no_evolution: 'This Pokémon does not evolve.',
+    detail_fav_add: 'Add to Collection', detail_fav_remove: 'Remove from Collection',
     card_detail_name: 'Card Name', card_detail_number: 'Card Number', card_detail_set: 'Set',
     card_detail_rarity: 'Rarity', card_detail_types: 'Types', card_detail_hp: 'HP',
     card_detail_artist: 'Artist', card_detail_supertype: 'Supertype', card_detail_subtype: 'Subtype',
@@ -220,7 +224,9 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(function(b) {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
-  // Re-render dynamic content
+  // Reset dynamic content flags so re-renders use the new language
+  featuredLoaded = false;
+  assistantInitialized = false;
   if (document.getElementById('page-academy').classList.contains('active')) renderAcademyLesson();
   if (document.getElementById('page-collection').classList.contains('active')) renderCollection();
   if (document.getElementById('page-assistant').classList.contains('active')) initAssistant();
@@ -240,7 +246,7 @@ function toast(msg, type) {
 /* ---------- HOME: FEATURED POKEMON ---------- */
 var featuredLoaded = false;
 function renderFeatured() {
-  if (featuredLoaded) return;
+  if (featuredLoaded && document.getElementById('featuredGrid').children.length > 0) return;
   var grid = document.getElementById('featuredGrid');
   if (!grid) return;
   grid.innerHTML = '<div class="loading-text">' + t('loading') + '</div>';
@@ -484,6 +490,8 @@ function openPokemonDetail(id) {
   var speciesUrl = 'https://pokeapi.co/api/v2/pokemon-species/' + id;
 
   cachedFetch(pkmUrl).then(function(d) {
+    var sprite = d.sprites.other['official-artwork'].front_default || d.sprites.front_default;
+    addToRecent({ id: d.id, name: d.name, sprite: sprite });
     // Fetch species for Korean name and evolution chain
     cachedFetch(speciesUrl).then(function(species) {
       // Find Korean name
@@ -504,8 +512,6 @@ function openPokemonDetail(id) {
       }
     }).catch(function() {
       renderPokemonDetail(d, null, null, null);
-      var sp = d.sprites.other['official-artwork'].front_default || d.sprites.front_default;
-      addToRecent({ id: d.id, name: d.name, sprite: sp });
     });
   }).catch(function() {
     body.innerHTML = '<div class="error-text">' + t('pokedex_api_error') + '</div>';
@@ -569,7 +575,7 @@ function renderPokemonDetail(d, species, evoData, krName) {
       });
       evoHtml += '</div>';
     } else {
-      evoHtml = '<p>This Pokémon does not evolve.</p>';
+      evoHtml = '<p>' + t('detail_no_evolution') + '</p>';
     }
   }
 
@@ -587,7 +593,7 @@ function renderPokemonDetail(d, species, evoData, krName) {
         '<div class="dh-name">' + displayName + '</div>' +
         '<div class="dh-id">#' + String(d.id).padStart(3, '0') + '</div>' +
         '<div class="detail-types">' + typesHtml + '</div>' +
-        '<button class="fav-btn' + (isFav ? ' favorited' : '') + '" style="position:static;opacity:1;font-size:1rem;margin-top:8px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:4px 12px">' + (isFav ? '♥ ' + t('fav_removed') : '♡ ' + t('fav_added')) + '</button>' +
+        '<button class="fav-btn' + (isFav ? ' favorited' : '') + '" style="position:static;opacity:1;font-size:1rem;margin-top:8px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:4px 12px">' + (isFav ? '♥ ' + t('detail_fav_remove') : '♡ ' + t('detail_fav_add')) + '</button>' +
       '</div>' +
     '</div>' +
     '<div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:var(--sp-1);font-size:0.8125rem;color:var(--text-secondary)">' +
@@ -671,7 +677,7 @@ function loadCardList() {
   var params = [];
   params.push('pageSize=24');
   params.push('page=' + cardsState.page);
-  if (cardsState.query) params.push('q=name:' + encodeURIComponent(cardsState.query + '*'));
+  if (cardsState.query) params.push('q=' + encodeURIComponent('name:' + cardsState.query + '*'));
   var url = 'https://api.pokemontcg.io/v2/cards?' + params.join('&');
 
   fetch(url).then(function(r) {
@@ -737,7 +743,7 @@ function openCardDetail(cardId) {
         '</div>' +
         '<div class="card-detail-info">' +
           '<h2>' + card.name + '</h2>' +
-          '<button class="fav-btn' + (isFav ? ' favorited' : '') + '" style="position:static;opacity:1;font-size:0.875rem;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:4px 12px;margin-bottom:var(--sp-1)">' + (isFav ? '♥' : '♡') + ' ' + (isFav ? t('fav_removed') : t('fav_added')) + '</button>' +
+          '<button class="fav-btn' + (isFav ? ' favorited' : '') + '" style="position:static;opacity:1;font-size:0.875rem;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:4px 12px;margin-bottom:var(--sp-1)">' + (isFav ? '♥' : '♡') + ' ' + (isFav ? t('detail_fav_remove') : t('detail_fav_add')) + '</button>' +
           '<div class="card-info-row"><span class="card-info-label">' + t('card_detail_number') + '</span><span>' + (card.number || '—') + '</span></div>' +
           '<div class="card-info-row"><span class="card-info-label">' + t('card_detail_set') + '</span><span>' + setName + '</span></div>' +
           '<div class="card-info-row"><span class="card-info-label">' + t('card_detail_rarity') + '</span><span>' + (card.rarity || '—') + '</span></div>' +
